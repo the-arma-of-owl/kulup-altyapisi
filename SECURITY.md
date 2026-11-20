@@ -28,7 +28,7 @@ gizli kalsın.
 ### Bildiriminizde neler olsun
 
 - Açığın kısa tanımı ve etkisi (ne yapılabiliyor?)
-- Etkilenen bölüm: site (`site/`), CMS (`cms/`), worker (`worker/`) ya da altyapıyı kullanan bir kulübün canlı sitesi
+- Etkilenen bölüm: site (`site/`), CMS (`cms/`) ya da worker (`worker/`)
 - Adım adım yeniden üretme yolu, varsa kavram kanıtı (PoC)
 - Hall of Fame'de görünmesini istediğiniz ad ve bağlantı (isteğe bağlı)
 
@@ -44,10 +44,9 @@ Düzeltme yayına çıkınca sizi bilgilendirir, isterseniz adınızı Hall of F
 
 ### Kapsam
 
-**Kapsamda:** bu depodaki kod (site, CMS, worker) ve altyapıyı kullanan kulüplerin canlı siteleri
-(ör. [bytfirat.com](https://www.bytfirat.com), [abtfirat.com](https://www.abtfirat.com)).
+**Kapsamda:** yalnız bu depodaki kod (site, CMS, worker). Açığı kendi kurduğunuz yerel ya da test ortamında doğrulayın.
 
-**Kapsam dışı:** hizmet engelleme (DoS/DDoS), yoğun otomatik tarama, sosyal mühendislik, fiziksel saldırılar,
+**Kapsam dışı:** altyapıyı kullanan kulüplerin canlı siteleri ve sunucuları (bunlarda test yapmayın), hizmet engelleme (DoS/DDoS), yoğun otomatik tarama, sosyal mühendislik, fiziksel saldırılar,
 üçüncü taraf hizmetlerin (Vercel, Supabase, Cloudflare, Resend) kendi açıkları.
 
 ### Kurallar
@@ -76,7 +75,7 @@ Please **do not share the vulnerability in a public issue or pull request**; kee
 ### What to include
 
 - A short description of the issue and its impact (what can an attacker do?)
-- The affected part: website (`site/`), CMS (`cms/`), worker (`worker/`), or a live site of a club using this stack
+- The affected part: website (`site/`), CMS (`cms/`) or worker (`worker/`)
 - Step-by-step reproduction and a proof of concept (PoC), if you have one
 - The name and link you would like shown on the Hall of Fame (optional)
 
@@ -92,10 +91,9 @@ We will let you know when the fix is released and, if you wish, add your name to
 
 ### Scope
 
-**In scope:** the code in this repository (site, CMS, worker) and the live sites of clubs using this stack
-(e.g. [bytfirat.com](https://www.bytfirat.com), [abtfirat.com](https://www.abtfirat.com)).
+**In scope:** only the code in this repository (site, CMS, worker). Verify issues on your own local or test deployment.
 
-**Out of scope:** denial of service (DoS/DDoS), high-volume automated scanning, social engineering, physical
+**Out of scope:** the live sites and servers of clubs using this stack (do not test against them), denial of service (DoS/DDoS), high-volume automated scanning, social engineering, physical
 attacks, and vulnerabilities in third-party services themselves (Vercel, Supabase, Cloudflare, Resend).
 
 ### Rules
