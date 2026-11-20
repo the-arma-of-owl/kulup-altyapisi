@@ -293,3 +293,11 @@ worker/                      masaüstü aracı (kendi README'si var)
 - **Görsel değiştirmek:** dosya adını değiştir ya da `?v=<özet>` ekle; tarayıcı önbelleği 1 saat.
 - **Test ortamı (staging):** ayrı bir Supabase projesi + Vercel Preview ortamında `BYT_STAGING=1`
   (CMS, e-posta kilidi) ve `NEXT_PUBLIC_BYT_STAGING=1` (site, arama motorlarına kapalı).
+
+---
+
+## Güvenlik
+
+Bir güvenlik açığı bulduysanız lütfen herkese açık issue açmayın; **efecamn200@gmail.com** adresine yazın ya da
+**Security → Report a vulnerability** ile gizli bildirin. Geçerli bildirimleri Hall of Fame'de anmaktan
+mutluluk duyarız. Ayrıntılar: [SECURITY.md](SECURITY.md).

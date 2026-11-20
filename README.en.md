@@ -298,3 +298,11 @@ worker/                      desktop tool (has its own README)
 - **Changing an image:** rename the file or add `?v=<hash>`; the browser cache lasts 1 hour.
 - **Test environment (staging):** a separate Supabase project + `BYT_STAGING=1` in a Vercel Preview environment
   (CMS, email lock) and `NEXT_PUBLIC_BYT_STAGING=1` (site, hidden from search engines).
+
+---
+
+## Security
+
+Found a vulnerability? Please don't open a public issue; email **efecamn200@gmail.com** or report it privately
+via **Security → Report a vulnerability**. We are happy to credit valid reports on our Hall of Fame. Details:
+[SECURITY.md](SECURITY.md).
