@@ -8,9 +8,9 @@ hazır gelir.
 Her kulüp bu repoyu **kendi hesaplarıyla, kendi başına** kurar ve işletir. Verisi kendi veritabanında durur.
 Site bilerek sade ve nötr tasarlandı: akışlar çalışır, görünümü her kulüp kendine göre değiştirir.
 
-[![Kalkan örnek kulübüyle 0'dan kurulum videosu](docs/demo/kalkan-demo.jpg)](docs/demo/kalkan-demo.mp4)
+https://github.com/user-attachments/assets/d0f2b649-9995-4920-b7f5-1e1ac282c646
 
-**[Demo videosu (2.5 dk)](docs/demo/kalkan-demo.mp4):** depoyu klonla, `kulup.config.json`'u doldur, panel,
+**Demo videosu (2.5 dk, [indir](docs/demo/kalkan-demo.mp4)):** depoyu klonla, `kulup.config.json`'u doldur, panel,
 site, bağlantı (`/link`) sayfası, QR'lı bilet, kapıda okutma ve worker.
 
 > Depodaki örnek kulüp **Kalkan Siber Güvenlik Kulübü** ve "Örnek Teknik Üniversitesi" **kurgusaldır**. Logo,
