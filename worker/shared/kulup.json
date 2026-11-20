@@ -1,0 +1,49 @@
+{
+  "kisaAd": "KALKAN",
+  "tamAd": "Kalkan Siber Güvenlik Kulübü",
+  "universite": "Örnek Teknik Üniversitesi",
+  "sehir": "Ankara",
+  "slogan": "Saldırıyı anla, savunmayı kur.",
+  "aciklama": "Kalkan Siber Güvenlik Kulübü: CTF, atölyeler, writeup'lar ve etik hacker topluluğu.",
+  "anahtarKelimeler": [
+    "siber güvenlik",
+    "CTF",
+    "etik hacker",
+    "kulüp",
+    "Örnek Teknik Üniversitesi"
+  ],
+  "adresler": {
+    "site": "https://kalkan.example.com",
+    "cms": "https://panel.kalkan.example.com",
+    "cdn": "https://cdn.kalkan.example.com"
+  },
+  "eposta": {
+    "iletisim": "iletisim@kalkan.example.com",
+    "gonderen": "noreply@kalkan.example.com",
+    "gonderenAd": "Kalkan Siber"
+  },
+  "sosyal": {
+    "instagram": "",
+    "whatsapp": "",
+    "linkedin": "",
+    "github": "",
+    "youtube": "",
+    "x": ""
+  },
+  "tema": {
+    "anaRenk": "#18181b",
+    "ikinciRenk": "#3f3f46"
+  },
+  "sertifika": {
+    "onEk": "KLK",
+    "imzaMetni": "Kalkan Siber Güvenlik Kulübü tarafından verilmiştir."
+  },
+  "kampus": {
+    "enlem": 39.9334,
+    "boylam": 32.8597,
+    "yakinlastirma": 15
+  },
+  "yasal": {
+    "epostaAltBilgisi": "Bu e-posta, kulübümüze başvuru yaptığın için gönderildi. Başvuruyu sen yapmadıysan bu e-postayı görmezden gelebilirsin."
+  }
+}

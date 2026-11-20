@@ -1,0 +1,102 @@
+name: Worker surumu
+
+# Kulup Worker'i GitHub'da derler ve kurulum dosyalarini on surum (pre-release) olarak yayimlar.
+# Otomatik: main'e worker/ altinda degisiklik push'lanınca calisir (elle de baslatilabilir).
+# Surum numarasi worker/package.json'dan alinir (etiket: worker-v<surum>); ayni surum zaten varsa
+# dosyalari yenileriyle degistirilir. Yeni surum icin package.json'daki "version" artirilir.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'worker/**'
+      - '.github/workflows/worker-release.yml'
+  workflow_dispatch:
+
+# Ust uste push'larda yalniz son calisma yayimlar
+concurrency:
+  group: worker-release
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-latest
+            command: npm run dist:win -- --publish never
+            artifact: Kulup-Worker-Windows
+            files: worker/release/*.exe
+          - name: Linux
+            os: ubuntu-latest
+            command: npm run dist -- --publish never
+            artifact: Kulup-Worker-Linux
+            files: worker/release/*.AppImage
+
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: worker
+
+    steps:
+      - name: Kaynak kodu al
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: Bagimliliklari kur
+        run: npm ci
+
+      - name: Uygulamayi dogrula
+        run: npm run typecheck && npm test
+
+      - name: Paketi olustur
+        run: ${{ matrix.command }}
+
+      - name: Paketi sakla
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.files }}
+          if-no-files-found: error
+
+  release:
+    name: On surum yayimla
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Kaynak kodu al
+        uses: actions/checkout@v4
+
+      - name: Paketleri indir
+        uses: actions/download-artifact@v4
+        with:
+          path: paketler
+          merge-multiple: true
+
+      - name: On surumu olustur veya guncelle
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./worker/package.json').version")
+          TAG="worker-v$VERSION"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" paketler/* --clobber
+          else
+            gh release create "$TAG" paketler/* --prerelease --target "$GITHUB_SHA" \
+              --title "Kulup Worker $VERSION" \
+              --notes "Windows: Kulüp Worker Setup $VERSION.exe — Linux: AppImage. Kaynak: $GITHUB_SHA"
+          fi

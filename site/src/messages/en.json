@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "Home",
+    "events": "Events",
+    "trainings": "Trainings",
+    "blog": "Blog / Writeup",
+    "gallery": "Gallery",
+    "team": "Team",
+    "achievements": "Achievements",
+    "apply": "Applications",
+    "login": "Admin",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "certificate": "Verify Certificate"
+  },
+  "hero": {
+    "subtitle": "The center of technology and innovation at {universite}.",
+    "cta_event": "Register for Event",
+    "cta_whatsapp": "Join WhatsApp Community"
+  },
+  "common": {
+    "all_announcements": "All Announcements",
+    "upcoming_events": "Upcoming Events",
+    "gallery": "Gallery",
+    "manifesto": "Manifesto",
+    "achievements": "Achievements",
+    "back": "Go Back",
+    "loading": "Loading...",
+    "no_data": "No data available yet.",
+    "submit": "Submit",
+    "success": "Success!",
+    "error": "An error occurred."
+  }
+}

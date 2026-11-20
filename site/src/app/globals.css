@@ -1,0 +1,332 @@
+@import "tailwindcss";
+
+/* Fontlar next/font ile self-host ediliyor (src/app/fonts.ts) */
+@theme inline {
+  --font-sans: var(--font-govde), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-baslik), var(--font-govde), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-kod), ui-monospace, SFMono-Regular, monospace;
+
+  /* ── Tasarım dili: "sade" ──
+     Beyaz zemin, ince gri kenarlar, hafif gölgeler, tek vurgu rengi. Renkli blok sınıfları (limon, pembe…)
+     geriye uyum için duruyor ama hepsi nötr griye bağlı.
+     Ana renk kulup.config.json → tema.anaRenk'ten gelir (--kulup-ana); diğerleri vurgu renkleri.
+     Sınıflar: bg-zemin, bg-yuzey, text-murekkep, text-soluk, border-kenar, bg-ana, text-ana-yazi,
+     bg-limon/seftali/pembe/gok/nane, shadow-sert, shadow-sert-lg, rounded-kutu. */
+  --color-zemin: var(--k-zemin);
+  --color-zemin-2: var(--k-zemin-2);
+  --color-yuzey: var(--k-yuzey);
+  --color-murekkep: var(--k-murekkep);
+  --color-soluk: var(--k-soluk);
+  --color-kenar: var(--k-kenar);
+  --color-ana: var(--kulup-ana, #7c3aed);
+  --color-ana-acik: color-mix(in oklab, var(--kulup-ana, #7c3aed) 16%, var(--k-yuzey));
+  --color-ana-yazi: var(--k-ana-yazi);
+  --color-limon: var(--k-limon);
+  --color-seftali: var(--k-seftali);
+  --color-pembe: var(--k-pembe);
+  --color-gok: var(--k-gok);
+  --color-nane: var(--k-nane);
+  --color-basari: var(--k-basari);
+  --color-hata: #ef4444;
+
+  --shadow-sert-sm: 0 1px 2px 0 var(--k-golge);
+  --shadow-sert: 0 1px 3px 0 var(--k-golge), 0 1px 2px -1px var(--k-golge);
+  --shadow-sert-lg: 0 8px 24px -8px var(--k-golge-lg);
+  --radius-kutu: 0.875rem;
+}
+
+:root {
+  --k-zemin: #fafafa;
+  --k-zemin-2: #f4f4f5;
+  --k-yuzey: #ffffff;
+  --k-murekkep: #18181b;
+  --k-soluk: #71717a;
+  --k-kenar: #e4e4e7;
+  --k-golge: rgb(0 0 0 / 0.05);
+  --k-golge-lg: rgb(0 0 0 / 0.12);
+  --k-ana-yazi: var(--kulup-ana, #18181b);
+  --k-limon: #f4f4f5;
+  --k-seftali: #f4f4f5;
+  --k-pembe: #fef2f2;
+  --k-gok: #f4f4f5;
+  --k-nane: #f0fdf4;
+  --k-basari: #16a34a;
+}
+html.dark {
+  --k-zemin: #09090b;
+  --k-zemin-2: #111113;
+  --k-yuzey: #18181b;
+  --k-murekkep: #fafafa;
+  --k-soluk: #a1a1aa;
+  --k-kenar: #27272a;
+  --k-golge: rgb(0 0 0 / 0.4);
+  --k-golge-lg: rgb(0 0 0 / 0.6);
+  --k-ana-yazi: #fafafa;
+  --k-limon: #27272a;
+  --k-seftali: #27272a;
+  --k-pembe: #2a1616;
+  --k-gok: #27272a;
+  --k-nane: #142a1c;
+  --k-basari: #22c55e;
+}
+
+/* Hazır bileşen sınıfları (React karşılıkları: src/components/kit) */
+@layer components {
+  .kart { @apply rounded-kutu border border-kenar bg-yuzey text-murekkep shadow-sert; }
+  .kart-hover { @apply transition-[box-shadow,border-color] duration-200 hover:border-soluk/40 hover:shadow-sert-lg; }
+  .dugme { @apply inline-flex items-center justify-center gap-2 rounded-lg border border-kenar px-4 py-2 font-sans text-sm font-medium text-murekkep transition-colors duration-150 hover:bg-zemin-2 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ana/40; }
+  .dugme-ana { @apply border-ana bg-ana text-white hover:bg-ana/90 dark:border-white dark:bg-white dark:text-[#18181b] dark:hover:bg-white/90; }
+  .dugme-limon { @apply bg-yuzey; }
+  .dugme-yuzey { @apply bg-yuzey; }
+  .dugme-buyuk { @apply px-5 py-2.5 text-sm; }
+  .rozet { @apply inline-flex items-center gap-1.5 rounded-full border border-kenar px-2.5 py-0.5 text-xs font-medium text-soluk; }
+  .girdi { @apply w-full rounded-lg border border-kenar bg-yuzey px-4 py-3 text-base text-murekkep placeholder:text-soluk/70 transition-shadow focus:outline-none focus:border-murekkep/40 focus:ring-4 focus:ring-murekkep/5 disabled:opacity-60; }
+  .etiket { @apply mb-1.5 block text-sm font-medium text-murekkep; }
+  .ust-baslik { @apply font-sans text-xs font-medium uppercase tracking-[0.14em] text-soluk; }
+}
+
+
+@theme {
+  
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-byte-float: byte-float 4s ease-in-out infinite;
+  --animate-byte-question: byte-question 2.4s ease-in-out infinite;
+
+  /* Hafif süzülme ve zıplama animasyonları */
+  @keyframes byte-float {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-14px) rotate(4deg); }
+  }
+  @keyframes byte-question {
+    0%, 100% { transform: translateY(0) rotate(12deg); opacity: 1; }
+    50% { transform: translateY(-10px) rotate(-6deg); opacity: 0.75; }
+  }
+  
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Sayfa zeminleri: önceden bg-[#050505] gibi sabit yazılıydı; değişken oldu ki etkinlik
+     temaları (src/styles/event-themes.css) tek yerden değiştirebilsin. Değerler aynı. */
+  --color-night-950: var(--k-zemin);
+  --color-night-900: var(--k-zemin-2);
+  --color-night-850: var(--k-yuzey);
+  --color-night-code: #0D1117;
+  --color-day: var(--k-zemin);
+
+  /* Ana renk paleti: kulup.config.json → tema.anaRenk'ten türetilir (html'de --kulup-ana).
+     Bileşenlerdeki cyan ve blue sınıfları bu tek renge bağlı; rengi değiştirmek için config yeter. */
+  --color-cyan-50: color-mix(in oklab, var(--kulup-ana, #7c3aed) 4%, white);
+  --color-cyan-100: color-mix(in oklab, var(--kulup-ana, #7c3aed) 10%, white);
+  --color-cyan-200: color-mix(in oklab, var(--kulup-ana, #7c3aed) 22%, white);
+  --color-cyan-300: color-mix(in oklab, var(--kulup-ana, #7c3aed) 40%, white);
+  --color-cyan-400: color-mix(in oklab, var(--kulup-ana, #7c3aed) 70%, white);
+  --color-cyan-500: var(--kulup-ana, #7c3aed);
+  --color-cyan-600: var(--kulup-ana, #7c3aed);
+  --color-cyan-700: color-mix(in oklab, var(--kulup-ana, #7c3aed) 82%, black);
+  --color-cyan-800: color-mix(in oklab, var(--kulup-ana, #7c3aed) 65%, black);
+  --color-cyan-900: color-mix(in oklab, var(--kulup-ana, #7c3aed) 45%, black);
+  --color-cyan-950: color-mix(in oklab, var(--kulup-ana, #7c3aed) 28%, black);
+
+  --color-blue-50: color-mix(in oklab, var(--kulup-ana, #7c3aed) 4%, white);
+  --color-blue-100: color-mix(in oklab, var(--kulup-ana, #7c3aed) 10%, white);
+  --color-blue-200: color-mix(in oklab, var(--kulup-ana, #7c3aed) 22%, white);
+  --color-blue-300: color-mix(in oklab, var(--kulup-ana, #7c3aed) 40%, white);
+  --color-blue-400: color-mix(in oklab, var(--kulup-ana, #7c3aed) 70%, white);
+  --color-blue-500: var(--kulup-ana, #7c3aed);
+  --color-blue-600: var(--kulup-ana, #7c3aed);
+  --color-blue-700: color-mix(in oklab, var(--kulup-ana, #7c3aed) 82%, black);
+  --color-blue-800: color-mix(in oklab, var(--kulup-ana, #7c3aed) 65%, black);
+  --color-blue-900: color-mix(in oklab, var(--kulup-ana, #7c3aed) 45%, black);
+  --color-blue-950: color-mix(in oklab, var(--kulup-ana, #7c3aed) 28%, black);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  ::selection { background: var(--k-limon); color: #1a1625; }
+}
+
+/* Override react-medium-image-zoom overlay background for themes */
+:root {
+  --zoom-overlay-bg: rgba(255, 248, 236, 0.96);
+}
+html.dark {
+  --zoom-overlay-bg: rgba(20, 17, 28, 0.96);
+}
+[data-rmiz-modal-overlay="visible"] {
+  background-color: var(--zoom-overlay-bg) !important;
+}
+
+@layer utilities {
+  /* ── Zengin metin (blog / rehber / başarı açıklaması). Typography eklentisi yok; .prose burada tanımlı. ── */
+  .prose {
+    @apply text-[1.0625rem] leading-[1.8] text-murekkep break-words;
+  }
+  .prose > :first-child { @apply mt-0; }
+  .prose > :last-child { @apply mb-0; }
+  .prose p { @apply my-5; }
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    @apply font-display font-extrabold tracking-tight text-murekkep scroll-mt-28;
+  }
+  .prose h1 { @apply mt-12 mb-5 text-3xl leading-[1.1] sm:text-4xl; }
+  .prose h2 { @apply mt-12 mb-4 text-2xl leading-[1.15] sm:text-3xl; }
+  .prose h3 { @apply mt-10 mb-3 text-xl leading-snug sm:text-2xl; }
+  .prose h4, .prose h5, .prose h6 { @apply mt-8 mb-2 text-lg leading-snug; }
+  .prose ul { @apply my-5 list-disc pl-6; }
+  .prose ol { @apply my-5 list-decimal pl-6; }
+  .prose li { @apply my-1.5 pl-1; }
+  .prose li::marker { @apply font-bold text-ana; }
+  .prose li > ul, .prose li > ol { @apply my-2; }
+  .prose strong { @apply font-bold text-murekkep; }
+  .prose hr { @apply my-10 border-0 border-t-2 border-dashed border-kenar/25; }
+  .prose sub, .prose sup { @apply text-[0.75em]; }
+
+  /* ── Checklist / Task items ── */
+  .prose ul.checklist { @apply list-none pl-0; }
+  .prose li.task-item { @apply flex items-start gap-2 py-0.5 pl-0; }
+  .prose li.task-item input[type="checkbox"] {
+    @apply mt-1.5 w-4 h-4 rounded flex-shrink-0;
+    accent-color: var(--kulup-ana, #7c3aed);
+  }
+
+  /* ── Links ── */
+  .prose a {
+    @apply font-semibold text-ana-yazi underline decoration-ana/40 decoration-2 underline-offset-[3px] transition-colors hover:decoration-ana;
+  }
+
+  /* ── Inline code ── */
+  .prose code,
+  .inline-code {
+    @apply rounded-md border border-kenar/20 bg-zemin-2 px-1.5 py-0.5 font-mono text-[0.85em] text-ana-yazi;
+  }
+
+  /* ── Sözdizimi renklendirme (açık/koyu) ── */
+  .hljs-keyword, .hljs-selector-tag, .hljs-built_in, .hljs-name, .hljs-tag { @apply text-ana-yazi; }
+  .hljs-string, .hljs-title, .hljs-section, .hljs-attribute, .hljs-literal, .hljs-template-tag, .hljs-template-variable, .hljs-type, .hljs-addition { @apply text-emerald-700 dark:text-emerald-400; }
+  .hljs-comment, .hljs-quote, .hljs-deletion, .hljs-meta { @apply text-soluk italic; }
+  .hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-title, .hljs-section, .hljs-doctag, .hljs-type, .hljs-name, .hljs-strong { @apply font-bold; }
+  .hljs-attr, .hljs-variable, .hljs-template-variable, .hljs-type, .hljs-selector-class, .hljs-selector-attr, .hljs-selector-pseudo, .hljs-number { @apply text-orange-700 dark:text-orange-400; }
+  .hljs-symbol, .hljs-bullet, .hljs-link, .hljs-meta, .hljs-selector-id, .hljs-title { @apply text-pink-700 dark:text-pink-400; }
+
+  /* ── Code block ── */
+  .code-block {
+    @apply relative my-7 overflow-hidden rounded-2xl border-2 border-kenar bg-yuzey shadow-sert-sm;
+  }
+  .code-header {
+    @apply flex items-center justify-between gap-3 border-b-2 border-kenar bg-zemin-2 px-4 py-2;
+  }
+  .code-block pre,
+  .prose .code-block pre {
+    @apply m-0 overflow-x-auto rounded-none border-0 p-5;
+    background: transparent !important;
+  }
+  .code-block pre code,
+  .prose .code-block pre code {
+    @apply rounded-none border-0 bg-transparent p-0 font-mono text-[13px] leading-relaxed whitespace-pre text-murekkep;
+  }
+  .code-lang {
+    @apply select-none font-mono text-xs font-bold uppercase tracking-widest text-soluk;
+  }
+  .copy-btn {
+    @apply flex cursor-pointer items-center rounded-full border-2 border-kenar bg-yuzey px-3 py-1 font-display text-[10px] font-bold uppercase tracking-wider text-murekkep transition-colors hover:bg-limon hover:text-[#1a1625];
+  }
+  .copy-btn.copied {
+    @apply bg-nane text-[#1a1625];
+  }
+
+  /* ── Prose pre (for backward compat) ── */
+  .prose pre {
+    @apply my-6 overflow-x-auto rounded-2xl border-2 border-kenar bg-zemin-2 p-4;
+  }
+  .prose pre code {
+    @apply rounded-none border-0 bg-transparent p-0 whitespace-pre text-murekkep;
+  }
+
+  /* ── Figures / Images in prose ── */
+  .prose img { @apply h-auto max-w-full rounded-2xl border-2 border-kenar; }
+  .prose figure { @apply my-8; }
+  .prose figure img { @apply w-full shadow-sert-sm; }
+  .prose figure figcaption { @apply mt-3 text-center text-sm text-soluk; }
+  .prose .prose-video { @apply my-4 w-full rounded-2xl border-2 border-kenar; }
+
+  /* ── Blockquote ── */
+  .prose blockquote {
+    @apply my-6 rounded-r-2xl border-l-4 border-ana bg-ana-acik px-5 py-3 text-murekkep;
+  }
+  .prose blockquote p { @apply my-2; }
+
+  /* ── Hide Scrollbar ── */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility mask-image-vertical {
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+@layer components {
+  .spoiler-wrapper {
+    @apply relative my-7 cursor-pointer select-none overflow-hidden rounded-2xl border-2 border-dashed border-kenar bg-zemin-2;
+  }
+  .spoiler-wrapper.revealed { @apply border-solid bg-yuzey shadow-sert-sm; }
+  .spoiler-wrapper:not(.revealed) .spoiler-content {
+    @apply filter blur-md opacity-20 pointer-events-none select-none;
+  }
+  .spoiler-wrapper.revealed .spoiler-overlay {
+    @apply hidden;
+  }
+  .spoiler-overlay {
+    @apply absolute inset-0 z-10 flex flex-col items-center justify-center font-display font-bold text-murekkep transition-colors;
+  }
+  .spoiler-wrapper:not(.revealed):hover .spoiler-overlay { @apply bg-limon/30; }
+  .spoiler-content {
+    @apply p-6 text-murekkep;
+  }
+  .spoiler-copy-btn {
+    @apply pointer-events-none absolute right-3 top-3 flex cursor-pointer items-center rounded-full border-2 border-kenar bg-yuzey px-3 py-1 font-display text-[10px] font-bold uppercase tracking-wider text-murekkep opacity-0 transition-[opacity,background-color] hover:bg-limon hover:text-[#1a1625];
+  }
+  .spoiler-wrapper.revealed .spoiler-copy-btn {
+    @apply opacity-100 pointer-events-auto;
+  }
+  .spoiler-copy-btn.copied {
+    @apply bg-nane text-[#1a1625];
+  }
+}
+
+/* Kayan yazı (components/layout/Marquee.tsx): yalnız transform animasyonu, dikişsiz döngü */
+.byt-marquee {
+  overflow: hidden;
+  contain: layout paint;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.byt-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.byt-marquee__track.is-running {
+  animation: byt-marquee-scroll linear infinite;
+}
+.byt-marquee:hover .byt-marquee__track { animation-play-state: paused; }
+.byt-marquee__copy {
+  flex: none;
+  white-space: nowrap;
+  padding-right: 3rem; /* kopyalar arası boşluk ölçülen genişliğe dahil → dikişsiz */
+}
+@keyframes byt-marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--marquee-shift), 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .byt-marquee__track.is-running { animation: none; }
+}

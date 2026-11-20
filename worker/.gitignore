@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-server/
+dist-electron/
+release/
+.puppeteer-cache/
+whatsapp-auth/
+.wwebjs_cache/
+session.json
+history.json
+.wine-kulup/

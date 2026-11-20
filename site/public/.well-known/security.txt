@@ -1,0 +1,10 @@
+# Sitemizde bir güvenlik açığı bulduysan lütfen herkese açık paylaşmadan önce
+# aşağıdaki adresten bize özelden bildir.
+# Found a security issue? Please report it privately via the contact below.
+#
+# KULÜP: Contact ve Canonical satırlarını kendi adreslerinle değiştir; Expires en fazla 1 yıl sonrası olmalı.
+
+Contact: mailto:iletisim@kulubum.example.com
+Expires: 2027-11-01T00:00:00.000Z
+Preferred-Languages: tr, en
+Canonical: https://kulubum.example.com/.well-known/security.txt

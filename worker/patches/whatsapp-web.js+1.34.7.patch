@@ -1,0 +1,16 @@
+diff --git a/node_modules/whatsapp-web.js/src/util/Injected/Utils.js b/node_modules/whatsapp-web.js/src/util/Injected/Utils.js
+index 540078a..fb5825d 100644
+--- a/node_modules/whatsapp-web.js/src/util/Injected/Utils.js
++++ b/node_modules/whatsapp-web.js/src/util/Injected/Utils.js
+@@ -483,6 +483,11 @@ exports.LoadUtils = () => {
+             ...extraOptions,
+         };
+ 
++        // Yerel yama (wwebjs#201922): medya modelinden kopyalanan __x_id mesaj kimliğini ezip
++        // "Data passed to getter must include an id property" hatasına yol açıyor.
++        delete message.__x_id;
++        message.id = newMsgKey;
++
+         // Bot's won't reply if canonicalUrl is set (linking)
+         if (botOptions) {
+             delete message.canonicalUrl;

@@ -1,0 +1,69 @@
+.byt-stats { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 40px 0 80px; color: var(--theme-text); }
+.byt-stats header { display: grid; gap: 8px; margin-bottom: 24px; }
+.byt-stats header p { margin: 0; color: var(--theme-elevation-500); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.byt-stats header h1 { margin: 0; font-size: 36px; }
+.byt-stats header span { color: var(--theme-elevation-600); }
+.byt-stats h2 { margin: 0 0 12px; font-size: 18px; }
+.byt-stats .byt-stats__sub { margin-top: 24px; }
+.byt-stats code { padding: 1px 6px; background: var(--theme-elevation-100); border-radius: 3px; font-size: .9em; }
+.byt-stats__hint { margin: 0 0 12px; color: var(--theme-elevation-600); font-size: .875rem; }
+.byt-stats__empty { margin: 0; color: var(--theme-elevation-600); }
+.byt-stats__notice { padding: 14px 18px; border: 2px solid #c79a3b; background: rgba(199, 154, 59, .12); font-weight: 600; }
+.byt-stats__range { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; padding: 16px 20px; background: var(--theme-elevation-50); border: 1px solid var(--theme-elevation-200); margin-bottom: 20px; }
+.byt-stats__range label { display: grid; gap: 6px; }
+.byt-stats__range label > span { font-size: 13px; font-weight: 600; }
+.byt-stats__range input, .byt-stats__ref input { min-height: 40px; padding: 0 10px; color: var(--theme-text); background: var(--theme-input-bg); border: 1px solid var(--theme-elevation-300); border-radius: 4px; font-size: 15px; }
+.byt-stats__range button, .byt-stats__ref button { min-height: 40px; padding: 0 16px; color: #000; background: #fff; border: 1px solid var(--theme-elevation-400); border-radius: 4px; cursor: pointer; font-weight: 700; }
+.byt-stats__range nav { display: flex; flex-wrap: wrap; gap: 12px; margin-left: auto; }
+.byt-stats__range nav a { color: var(--theme-elevation-700); font-size: 14px; }
+.byt-stats__kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.byt-stats__kpi { display: grid; gap: 6px; padding: 16px 18px; border: 1px solid var(--theme-elevation-200); background: var(--theme-elevation-50); }
+.byt-stats__kpi span { color: var(--theme-elevation-600); font-size: 13px; }
+.byt-stats__kpi strong { font-size: 28px; line-height: 1.1; }
+.byt-stats__card { padding: 18px 20px; border: 1px solid var(--theme-elevation-200); margin-bottom: 20px; min-width: 0; }
+.byt-stats__grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 20px; }
+.byt-stats__grid .byt-stats__card { margin-bottom: 0; }
+.byt-stats__scroll { overflow-x: auto; }
+.byt-stats table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.byt-stats th { text-align: left; color: var(--theme-elevation-600); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--theme-elevation-300); white-space: nowrap; }
+.byt-stats td { padding: 8px 10px 8px 0; border-top: 1px solid var(--theme-elevation-150, var(--theme-elevation-200)); font-variant-numeric: tabular-nums; }
+.byt-stats td:not(:first-child), .byt-stats th:not(:first-child) { text-align: right; }
+.byt-stats__path { word-break: break-all; }
+.byt-stats__chart { margin: 0; }
+.byt-stats__bars { display: flex; align-items: flex-end; gap: 2px; height: 180px; padding-top: 8px; border-bottom: 1px solid var(--theme-elevation-300); }
+.byt-stats__bar { position: relative; flex: 1 1 0; min-width: 2px; max-width: 32px; height: 100%; }
+.byt-stats__bar i, .byt-stats__bar b { position: absolute; bottom: 0; left: 0; right: 0; border-radius: 2px 2px 0 0; }
+.byt-stats__bar i { background: var(--theme-elevation-250, var(--theme-elevation-300)); }
+.byt-stats__bar b { left: 20%; right: 20%; background: var(--theme-text); }
+.byt-stats__bar:hover i, .byt-stats__bar:focus i { background: var(--theme-elevation-400); }
+.byt-stats__bar:focus { outline: none; }
+.byt-stats__bar::after {
+  content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); z-index: 2;
+  padding: 6px 8px; border-radius: 4px; background: var(--theme-text); color: var(--theme-bg); font-size: 12px; line-height: 1.4;
+  white-space: pre; pointer-events: none; opacity: 0; transition: opacity .1s;
+}
+.byt-stats__bar[data-edge="start"]::after { left: 0; transform: none; }
+.byt-stats__bar[data-edge="end"]::after { left: auto; right: 0; transform: none; }
+.byt-stats__bar:hover::after, .byt-stats__bar:focus::after { opacity: 1; }
+.byt-stats__axis { display: flex; gap: 2px; margin-top: 6px; }
+.byt-stats__axis span { flex: 1 1 0; min-width: 2px; max-width: 32px; overflow: visible; white-space: nowrap; color: var(--theme-elevation-600); font-size: 11px; }
+.byt-stats__chart figcaption { margin-top: 10px; color: var(--theme-elevation-600); font-size: 12px; }
+.byt-stats__key { display: inline-block; width: 10px; height: 10px; margin-left: 8px; vertical-align: -1px; }
+.byt-stats__key--views { background: var(--theme-elevation-300); }
+.byt-stats__key--visitors { background: var(--theme-text); }
+
+/* Etkinlik düzenleme ekranındaki özet */
+.byt-stats--field { width: auto; padding: 0; margin: 8px 0 24px; }
+.byt-stats--field .byt-stats__kpis { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.byt-stats--field .byt-stats__kpi strong { font-size: 22px; }
+.byt-stats--field .byt-stats__bars { height: 110px; }
+.byt-stats__ref { display: grid; gap: 10px; padding: 16px 18px; border: 1px solid var(--theme-elevation-200); background: var(--theme-elevation-50); margin-bottom: 20px; }
+.byt-stats__ref-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.byt-stats__ref-row input { flex: 1 1 220px; min-width: 0; }
+.byt-stats__ref output { display: block; padding: 10px 12px; border: 1px dashed var(--theme-elevation-400); word-break: break-all; font-family: var(--font-mono, monospace); font-size: 14px; }
+
+@media (max-width: 900px) {
+  .byt-stats { width: calc(100% - 32px); padding-top: 24px; }
+  .byt-stats__grid { grid-template-columns: 1fr; }
+  .byt-stats__range nav { margin-left: 0; }
+}
