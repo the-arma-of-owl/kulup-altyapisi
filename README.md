@@ -1,5 +1,7 @@
 # Kulüp Altyapısı
 
+**Türkçe** · [English](README.en.md)
+
 Üniversite öğrenci kulüpleri için hazır web altyapısı: tanıtım sitesi, içerik yönetim paneli (CMS) ve
 yöneticilerin masaüstü aracı. Etkinlik kaydı, QR'lı bilet ve kapı kontrolü, takımlı yarışmalar ve canlı jüri,
 doğrulanabilir sertifikalar, üyelik ve yönetim ekibi başvuruları, blog, SSS ve "üniversitede yeniyim" rehberi
@@ -18,6 +20,19 @@ site, bağlantı (`/link`) sayfası, QR'lı bilet, kapıda okutma ve worker.
 > `kulup.config.json`'u, logoları (`site/public/logo.png`, `cms/public/logo.png`, `worker/assets/`) ve
 > içerikleri değiştirin. Aynı örnek veriyi yerelde görmek için CMS kapalıyken `cd cms && npm run seed:demo`
 > (yerel SQLite'ı temizler; Postgres'te çalışmaz).
+
+## Bu altyapıyı kullanan kulüpler
+
+| [Bilişim ve Yazılım Topluluğu · bytfirat.com](https://www.bytfirat.com) | [Adli Bilişim Topluluğu · abtfirat.com](https://www.abtfirat.com) |
+|---|---|
+| [![bytfirat.com](docs/kulupler/bytfirat.gif)](https://www.bytfirat.com) | [![abtfirat.com](docs/kulupler/abtfirat.gif)](https://www.abtfirat.com) |
+
+**Siz de kulübünüzde kullanmak istiyor ama nasıl kuracağınızı bilmiyor musunuz?** Bu depoyu bir yapay zekâ
+kodlama asistanında (Claude Code, Codex vb.) açıp "bu altyapıyı kulübüm için kur" demeniz yeterli; aşağıdaki
+adımları izleyerek sizin için hızlıca kurar. Yine de takılırsanız **efecamn200@gmail.com** adresine yazın,
+yardımcı olayım.
+
+## Parçalar
 
 | Parça | Klasör | Teknoloji | Nerede çalışır |
 |---|---|---|---|
@@ -62,6 +77,7 @@ Görseller (dosya adlarını koru, içeriği değiştir). Şablonda hepsi gri ye
 - `site/public/og/varsayilan.jpg`: bağlantı önizleme görseli (1200×630, 300 KB altı)
 - `site/src/app/icon.png`, `apple-icon.png`, `site/public/favicon.ico`, `site/public/pwa/*`: simgeler
 - `site/public/mail/*`: e-posta üst/alt görselleri
+- `cms/public/logo.png`: yönetim paneli logosu
 - `worker/assets/icon.png`, `worker/src/assets/*`: worker simgesi ve giriş görselleri
 
 Arayüz: renk ve yazı tipleri `site/src/app/globals.css` (en üstteki tasarım tokenları) ve
@@ -261,6 +277,7 @@ cms/src/globals/             SiteSettings, LegalDocs, UniversityGuideSettings
 cms/src/endpoints/           özel uçlar: teams, juryLive, gateCheckin
 cms/src/lib/                 kulup.ts (config), resend, telegram, backup, siteRevalidate, duplicateGuard, obs, analytics
 cms/sql/                     veritabanı şeması (000_kurulum.sql + sonraki değişiklikler)
+cms/seed-gorseller/          Kalkan demo verisinin görselleri
 worker/                      masaüstü aracı (kendi README'si var)
 ```
 
